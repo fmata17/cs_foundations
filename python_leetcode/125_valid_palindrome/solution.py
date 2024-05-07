@@ -4,11 +4,10 @@ def valid_palindrome(s):
 		if letter.isalnum():
 			f += letter
 
-	for i in range(len(f) - 1):
-		for j in range(len(f) - 1, -1):  # is not starting the pointer at last position
-			if f[i] != f[j]:
-				return False
-			return True
+	if f == f[::-1]:  # use logic to solve problem
+		return True  # palindromes read the same front and back
+	else:
+		return False
 
 
 s = "A man, a plan, a canal: Panama"
