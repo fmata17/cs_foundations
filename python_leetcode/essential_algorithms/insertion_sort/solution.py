@@ -12,7 +12,7 @@ def insertion_sort(a):
 		value_to_sort = a[i]  # keep track of the current value to sort
 		j = i - 1  # pointer to check if elements to the left are sorted or not
 
-		while j >= 0 and a[j] > value_to_sort:
+		while a[j] > value_to_sort and j >= 0:
 			a[j + 1] = a[j]  # move all unsorted elements one space to the right
 			j -= 1  # move pointer to stay consistent throughout the loop
 
