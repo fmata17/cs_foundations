@@ -30,25 +30,99 @@ public:
                     continue;
                 }
 
-                if (elements.count("Number " + to_string(board[i][j]) + " found in row " + to_string(i)) == 1 ||
-                    elements.count("Number " + to_string(board[i][j]) + " found in column " + to_string(j)) == 1 ||
-                    elements.count("Number " + to_string(board[i][j]) + " found in box " + to_string(i / 3) +
-                                   ", " + to_string(j / 3)) == 1)
+                string rowKey = "Number " + to_string(board[i][j]) + " found in row " + to_string(i);
+                string colKey = "Number " + to_string(board[i][j]) + " found in column " + to_string(j);
+                string boxKey = "Number " + to_string(board[i][j]) + " found in box " + to_string(i / 3) +
+                                ", " + to_string(j / 3);
+
+                if (elements.count(rowKey) == 1 ||
+                    elements.count(colKey) == 1 ||
+                    elements.count(boxKey) == 1)
                 {
                     return false;
                 }
 
                 else
                 {
-                    elements.insert("Number " + to_string(board[i][j]) + " found in row " + to_string(i));
-                    elements.insert("Number " + to_string(board[i][j]) + " found in column " + to_string(j));
-                    elements.insert("Number " + to_string(board[i][j]) + " found in box " + to_string(i / 3) +
-                                    ", " + to_string(j / 3));
+                    elements.insert(rowKey);
+                    elements.insert(colKey);
+                    elements.insert(boxKey);
                 }
             }
         }
         return true;
     };
+
+    bool isValidSudokuOptimized(vector<vector<char>> &board)
+    {
+        unordered_set<string> elements;
+        for (int i = 0; i < 9; ++i)
+        {
+            for (int j = 0; j < 9; ++j)
+            {
+                if (board[i][j] == '.')
+                {
+                    continue;
+                }
+
+                string rowKey = string(1, board[i][j]) + "r" + to_string(i);
+                string colKey = string(1, board[i][j]) + "c" + to_string(j);
+                string boxKey = string(1, board[i][j]) + "b" + to_string(i / 3) + to_string(j / 3);
+
+                if (elements.count(rowKey) == 1 ||
+                    elements.count(colKey) == 1 ||
+                    elements.count(boxKey) == 1)
+                {
+                    return false;
+                }
+
+                else
+                {
+                    elements.insert(rowKey);
+                    elements.insert(colKey);
+                    elements.insert(boxKey);
+                }
+            }
+        }
+        return true;
+    };
+
+    bool isValidSudokuIntegerBased(vector<vector<char>> &board)
+    {
+        unordered_set<int> elements;
+        for (int i = 0; i < 9; ++i)
+        {
+            for (int j = 0; j < 9; ++j)
+            {
+                if (board[i][j] == '.')
+                {
+                    continue;
+                }
+
+                // convert the character digit (e.g., '5' -ascii 53-)
+                // to its integer value (e.g., 5) by subtracting '0' -ascii 48-
+                int val = board[i][j] - '0';
+                // index boxes from 0 to 8 by starting each row index at 0, 3, 6 respectively and then adding the column index
+                int boxIndex = (i / 3) * 3 + (j / 3);
+
+                int rowKey = val * 1000 + 0 * 100 + i;
+                int colKey = val * 1000 + 1 * 100 + j;
+                int boxKey = val * 1000 + 2 * 100 + boxIndex;
+
+                if (elements.count(rowKey) == 1 ||
+                    elements.count(colKey) == 1 ||
+                    elements.count(boxKey) == 1)
+                {
+                    return false;
+                }
+
+                elements.insert(rowKey);
+                elements.insert(colKey);
+                elements.insert(boxKey);
+            }
+        }
+        return true;
+    }
 };
 
 int main(int argc, char const *argv[])
@@ -66,6 +140,8 @@ int main(int argc, char const *argv[])
 
     Solution s;
     cout << s.isValidSudoku(board) << endl;
+    cout << s.isValidSudokuOptimized(board) << endl;
+    cout << s.isValidSudokuIntegerBased(board) << endl;
 
     return 0;
 }
