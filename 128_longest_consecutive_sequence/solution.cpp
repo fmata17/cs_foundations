@@ -9,13 +9,14 @@ public:
     int longestConsecutive(vector<int> &nums)
     {
         int res = 0;
+        // set created by passing two iterators (begin, end)
         unordered_set<int> store(nums.begin(), nums.end());
         for (int i = 0; i < nums.size(); ++i)
         {
-            if (store.count(nums[i] - 1) == 0)
+            if (store.count(nums[i] - 1) == 0) // if it is the beginning of a sequence
             {
                 int streak = 0;
-                while (store.count(nums[i] + streak) != 0)
+                while (store.count(nums[i] + streak) != 0) // while sequence is still going
                 {
                     ++streak;
                 }
