@@ -16,6 +16,7 @@ Your solution must use O(1) additional space.
 class Solution
 {
 public:
+    // todo modify to make it O(n) taking advantage of the fact that its sorted
     vector<int> twoSum(vector<int> &numbers, int target)
     {
         for (int i = 0; i < numbers.size() - 1; ++i)
