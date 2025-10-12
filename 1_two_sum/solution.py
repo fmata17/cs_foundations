@@ -1,5 +1,5 @@
 # brute force solution
-def twosum(numbers, targeted):
+def twoSum(numbers, targeted):
     # first loop stops on second to last index
     for i in range(len(numbers) - 1):
         # second loop starts on second index and ends on last index
@@ -9,7 +9,7 @@ def twosum(numbers, targeted):
                 return i, j
 
 
-print(twosum(numbers=[3, 3], targeted=6))
+print(twoSum(numbers=[3, 3], targeted=6))
 
 
 # single-pass hashmap solution
