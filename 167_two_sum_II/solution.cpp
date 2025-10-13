@@ -16,7 +16,7 @@ Your solution must use O(1) additional space.
 class Solution
 {
 public:
-    // todo modify to make it O(n) taking advantage of the fact that its sorted
+    // brute force
     vector<int> twoSum(vector<int> &numbers, int target)
     {
         for (int i = 0; i < numbers.size() - 1; ++i)
@@ -31,16 +31,31 @@ public:
         }
         return {-1};
     }
+
+    // best solution taking into account the list is sorted
+    vector<int> twoSum2(vector<int> &numbers, int target) 
+    {
+        int i = 0;
+        int j = numbers.size() - 1;
+        while (numbers[i] + numbers[j] != target)
+        {
+            if (numbers[i] + numbers[j] < target)
+                ++i;
+            else
+                --j;
+        }
+        return {i + 1, j + 1};
+    }
 };
 
 int main()
 {
     vector<int> v = {1, 3, 5, 6};
     Solution s;
-    vector<int> res = s.twoSum(v, 6);
+    vector<int> res = s.twoSum2(v, 6);
     for (int i : res)
     {
-        cout << i;
+        cout << i << ' ';
     }
     cout << endl;
     return 0;
