@@ -5,11 +5,11 @@
 // The output should not contain any duplicate triplets.
 // You may return the output and the triplets in any order.
 
-// Input: nums = [-1,0,1,2,-1,-4]
-// Output: [[-1,-1,2],[-1,0,1]]
+// Input: nums      = [-1,0,1,2,-1,-4]
+// sorted input     = [-4,-1,-1,0,1,2]
+// Output:           [[-1,-1,2],[-1,0,1]]
 
 #include <vector>
-#include <set>
 #include <iostream>
 using namespace std;
 
@@ -17,28 +17,46 @@ class Solution
 {
 public:
     vector<vector<int>> threeSum(vector<int> &nums)
+    // optimal solution:
+    // sort and use two pointers and a for loop (twoSum2 in a for loop)
     {
-        set<int> numsSet(nums.begin(), nums.end());
-        vector<int> numsVec(numsSet.begin(), numsSet.end());
-        vector<vector<int>> zeroSums; // result vector
-        for (int i = 0; i < numsVec.size() - 2; ++i)
+        vector<vector<int>> res; // < i, j, k >
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < nums.size() - 2; ++i)
         {
-            int iNum = numsVec[i];
-            int j = i + 1;
-            while (j < numsVec.size() - 1)
+            if (i > 0 && nums[i] == nums[i - 1]) // avoid having the same i
+                continue;
+            int leftptr = i + 1;
+            int rightptr = nums.size() - 1;
+            while (leftptr < rightptr)
             {
-                int jNum = numsVec[j];
-                int k = j + 1;
-                while (k < numsVec.size())
+                // evaluate sum and move pointer respectively to approach a sum of 0
+                int threeSum = nums[i] + nums[leftptr] + nums[rightptr];
+                if (threeSum < 0)
                 {
-                    if (iNum + jNum + numsVec[k] == 0)
-                        zeroSums.push_back({iNum, jNum, numsVec[k]});
-                    ++k;
+                    ++leftptr;
                 }
-                ++j;
+                else if (threeSum > 0)
+                {
+                    --rightptr;
+                }
+                else
+                {
+                    res.push_back({nums[i], nums[leftptr], nums[rightptr]});
+                    // moving one pointer is enough; this changes the triplet,
+                    // and the loop logic will adjust the right side as needed
+                    ++leftptr;
+                    // keep incrementing to avoid having the same j and avoid duplicating triplets
+                    while (nums[leftptr] == nums[leftptr - 1] && leftptr < rightptr)
+                    {
+                        ++leftptr;
+                    }
+                }
             }
         }
-        return zeroSums;
+        return res;
     }
 };
 
