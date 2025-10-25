@@ -1,22 +1,22 @@
 #pragma once
 #include <iostream>
+// SinglyLinkedList.hpp
+
 using namespace std;
 
 template <typename Type>
-class SinglyLinkedList {
+class SinglyLinkedList
+{
 public:
-  SinglyLinkedList(): head(nullptr), size(0) {}
+  SinglyLinkedList() : head(nullptr), size(0) {}
   void insert(Type const val);
   int getSize();
   void print();
-  // SinglyLinkedList(SinglyLinkedList &&) = default;
-  // SinglyLinkedList(const SinglyLinkedList &) = default;
-  // SinglyLinkedList &operator=(SinglyLinkedList &&) = default;
-  // SinglyLinkedList &operator=(const SinglyLinkedList &) = default;
   ~SinglyLinkedList();
 
 private:
-  struct Node {
+  struct Node
+  {
     Node *next;
     Type data;
     Node(Type val) : data(val), next(nullptr) {}
@@ -26,17 +26,21 @@ private:
 };
 
 template <typename Type>
-void SinglyLinkedList<Type>::insert(Type const val) {
+void SinglyLinkedList<Type>::insert(Type const val)
+{
   Node *newNode = new Node(val);
 
-  if (head == nullptr) {
+  if (head == nullptr)
+  {
     head = newNode;
     ++size;
   }
 
-  else {
+  else
+  {
     Node *curr = head;
-    while (curr->next != nullptr) {
+    while (curr->next != nullptr)
+    {
       curr = curr->next;
     }
     curr->next = newNode;
@@ -48,9 +52,11 @@ template <typename Type>
 int SinglyLinkedList<Type>::getSize() { return size; }
 
 template <typename Type>
-void SinglyLinkedList<Type>::print() {
+void SinglyLinkedList<Type>::print()
+{
   Node *curr = head;
-  while (curr != nullptr) {
+  while (curr != nullptr)
+  {
     std::cout << curr->data << " ";
     curr = curr->next;
   }
@@ -58,8 +64,10 @@ void SinglyLinkedList<Type>::print() {
 }
 
 template <typename Type>
-SinglyLinkedList<Type>::~SinglyLinkedList() {
-  while (head != nullptr) {
+SinglyLinkedList<Type>::~SinglyLinkedList()
+{
+  while (head != nullptr)
+  {
     Node *toDelete = head;
     head = head->next;
     delete toDelete;
