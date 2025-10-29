@@ -1,8 +1,10 @@
+// TODO transform from single to double node usage
 #pragma once
 // SinglyLinkedStack.hpp
 
 template <typename Type>
-class LinkedList {
+class LinkedList
+{
 private:
   struct nodeType
   {
@@ -40,7 +42,7 @@ public:
 
 template <typename Type>
 LinkedList<Type>::LinkedList(Type const data[], int size)
-  : head(nullptr), size(0)
+    : head(nullptr), size(0)
 {
   for (int i = 0; i < size; ++i)
   {
@@ -56,7 +58,7 @@ void LinkedList<Type>::push(Type const data)
     head = new nodeType(data);
     ++size;
   }
-  else 
+  else
   {
     nodeType *newNode = new nodeType(data);
 

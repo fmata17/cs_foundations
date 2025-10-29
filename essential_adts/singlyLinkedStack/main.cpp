@@ -1,31 +1,32 @@
 #include <iostream>
 #include "SinglyLinkedStack.hpp"
+using namespace std;
 
-int main ()
+int main()
 {
-  LinkedList<int> list1;
-  list1.push(1);
-  list1.push(2); 
-  list1.push(3);
-  
-  list1.print();
+  int intNums[] = {1, 2, 3};
+  float floatNums[] = {1, 2, 3};
 
-  int nums1[] = {4, 5, 6};
-  list1.push(nums1, 3);
+  // default constructors
+  SinglyLinkedStack<int> stack1;
+  for (int num : intNums)
+    stack1.push(num);
 
-  list1.print();
+  stack1.print();
 
-  float nums2[] = {100.1, 200.2, 300.3};
+  // list traversal constructor
+  SinglyLinkedStack<float> stack2(floatNums, 3);
+  stack2.push(floatNums, 3);
+  stack2.print();
 
-  LinkedList<float> list2(nums2, 3);
+  // SinglyLinkedStack traversal constructor
+  SinglyLinkedStack<int> stack3(stack1);
+  stack3.push(stack1);
+  stack3.print();
+  cout << stack3.peek() << endl;
 
-  list2.print();
-
-  float nums3[] = {400.4, 500.5, 600.6};
-
-  list2.push(nums3, 3);
-
-  list2.print();
+  cout << stack1.isEmpty() << endl;
+  cout << stack3.getSize() << endl;
 
   return 0;
 }
